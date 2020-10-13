@@ -6,6 +6,10 @@ const config: webpack.Configuration = {
   mode: "development",
   entry: "./src/index.tsx",
   devtool: "source-map",
+  //@ts-ignore
+  devServer: {
+    historyApiFallback: true,
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
