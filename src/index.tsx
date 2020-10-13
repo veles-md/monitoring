@@ -4,15 +4,10 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Redirect,
-    Link
 } from "react-router-dom";
 import { PublicLayout } from './layouts/public'
 
 import { AuthRoute } from './components/PrivateRoute';
-
-
-import Button from '@material-ui/core/Button';
 
 const Dashboard = () => <h1>Dashboard </h1>
 
