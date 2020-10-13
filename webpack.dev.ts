@@ -18,6 +18,13 @@ const config: webpack.Configuration = {
       {
         test: /\.tsx?/,
         loader: "awesome-typescript-loader",
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false,
+        },
       },
     ],
   },
