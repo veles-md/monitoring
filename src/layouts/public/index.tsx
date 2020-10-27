@@ -46,6 +46,7 @@ export const PublicLayout = () => {
         e.preventDefault();
         // setAuth(false);
         dispatch({ type: 'OMG' })
+        history.push('/dashboard');
         console.log('Loggin in')
         // AuthService.login();
     }
