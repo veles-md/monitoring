@@ -1,12 +1,16 @@
 import path from "path";
-import webpack from "webpack";
 import HtmlWebPackPlugin from "html-webpack-plugin";
+import { Configuration as WebpackConfiguration } from "webpack";
+import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 
-const config: webpack.Configuration = {
+interface Configuration extends WebpackConfiguration {
+  devServer?: WebpackDevServerConfiguration,
+}
+
+const config: Configuration = {
   mode: "development",
   entry: "./src/index.tsx",
   devtool: "source-map",
-  //@ts-ignore
   devServer: {
     historyApiFallback: true,
   },
@@ -21,7 +25,7 @@ const config: webpack.Configuration = {
     rules: [
       {
         test: /\.tsx?/,
-        loader: "awesome-typescript-loader",
+        loader: "ts-loader",
         exclude: /node_modules/,
       },
       {

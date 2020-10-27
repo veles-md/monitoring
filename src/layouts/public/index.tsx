@@ -1,13 +1,12 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Avatar, Button, Container, TextField, Typography, makeStyles } from '@material-ui/core';
+
+import { Facebook, LockOutlined } from '@material-ui/icons';
+
+import AuthService from '../../auth.service'
+import { useDispatch, useSelector } from 'react-redux';
+import { dispatch } from 'rxjs/internal/observable/pairs';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -29,20 +28,40 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
+
+
+
+
 export const PublicLayout = () => {
     const classes = useStyles();
+    const history = useHistory();
+    const user = useSelector((state: any) => state.user);
+    const [isAuthed, setAuth] = useState(false);
+    AuthService.isAuthenticated$.subscribe(isAuth => {
+        setAuth(isAuth);
+        history.push('/dashboard');
+    })
+    const dispatch = useDispatch();
+    const login = (e) => {
+        e.preventDefault();
+        // setAuth(false);
+        dispatch({ type: 'OMG' })
+        console.log('Loggin in')
+        // AuthService.login();
+    }
     return (
         <Container component="main" maxWidth="xs">
-            <CssBaseline />
+            AUTH: {JSON.stringify(user)}
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
+                    <LockOutlined />
                 </Avatar>
                 <Typography component="h1" variant="h5">Sign in</Typography>
                 <form className={classes.form} noValidate>
                     <TextField label="Email" variant="outlined" margin="normal" required fullWidth />
                     <TextField label="Password" variant="outlined" margin="normal" required fullWidth />
                     <Button
+                        onClick={(e) => login(e)}
                         type="submit"
                         fullWidth
                         variant="contained"
@@ -52,7 +71,7 @@ export const PublicLayout = () => {
                     </Button>
                     <Button
                         type="submit"
-                        startIcon={<FacebookIcon />}
+                        startIcon={<Facebook />}
                         fullWidth
                         variant="contained"
                         color="primary">
